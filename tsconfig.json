@@ -7,6 +7,9 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -17,9 +20,6 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@src/*": ["src/*"]
-    },  
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]

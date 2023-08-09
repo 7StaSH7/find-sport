@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "ff5cbac4-2bb3-4cd0-9e4f-5a8dee7b8915",
+  "id": "55c34f44-9d87-4955-ac98-d2842e7e6eb4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -26,6 +26,12 @@
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {
@@ -39,7 +45,15 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_nickname_unique": {
+          "name": "users_nickname_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nickname"
+          ]
+        }
+      }
     }
   },
   "enums": {},

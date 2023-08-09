@@ -16,7 +16,7 @@ const setupOpenApi = (app: INestApplication) => {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('swagger', app, document, { useGlobalPrefix: true });
+  SwaggerModule.setup('docs/swagger', app, document);
 };
 
 async function bootstrap() {
@@ -25,8 +25,8 @@ async function bootstrap() {
     new FastifyAdapter({ logger: true }),
   );
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new TransformInterceptor());
   setupOpenApi(app);
 

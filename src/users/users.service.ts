@@ -1,43 +1,45 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { PG_CONNECTION } from '@src/constants';
+import { Database } from '@src/database/database.type';
 import { usersTable } from '@src/database/schemas/users';
 import { eq } from 'drizzle-orm';
-import { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { CreateUserDto } from './dto/create-user.dto';
+import { PG_CONNECTION } from 'src/constants';
+import { FieldsForFind } from './dto/find-fields.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @Inject(PG_CONNECTION) private readonly database: NodePgDatabase,
-  ) {}
+  constructor(@Inject(PG_CONNECTION) private readonly database: Database) {}
 
   async findAll(): Promise<User[]> {
-    const result: User[] = await this.database.select().from(usersTable);
+    const result = await this.database.query.usersTable.findMany();
     return result;
   }
 
   async findOne(userId: string): Promise<User> {
-    const users: User[] = await this.database
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.uuid, userId));
+    const user = await this.database.query.usersTable.findFirst({
+      where: (users, { eq }) => eq(users.uuid, userId),
+    });
 
-    if (!users[0]) {
+    if (!user) {
       throw new HttpException('user.not-found', HttpStatus.NOT_FOUND);
     }
 
-    return users[0];
+    return user;
   }
 
-  async create(user: CreateUserDto): Promise<User> {
-    const result = await this.database
-      .insert(usersTable)
-      .values(user)
-      .returning();
+  async findOneByField(field: FieldsForFind): Promise<User> {
+    const fieldToFind = Object.keys(field)[0] as keyof FieldsForFind;
 
-    return result[0];
+    const user = await this.database.query.usersTable.findFirst({
+      where: (users, { eq }) => eq(users[fieldToFind], field[fieldToFind]),
+    });
+
+    if (!user) {
+      throw new HttpException('user.not-found', HttpStatus.NOT_FOUND);
+    }
+
+    return user;
   }
 
   async update(userId: string, user: UpdateUserDto): Promise<User> {

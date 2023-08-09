@@ -1,14 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './dto/user.dto';
 import { UsersService } from './users.service';
@@ -19,10 +10,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get('')
-  @ApiResponse({
-    status: 200,
-  })
-  async findAll(): Promise<User[]> {
+  async findAll() {
     return await this.usersService.findAll();
   }
 
@@ -30,14 +18,8 @@ export class UsersController {
   @ApiResponse({
     status: 200,
   })
-  async findOne(@Param('userId') userId: string): Promise<User | undefined> {
+  async findOne(@Param('userId') userId: string) {
     return await this.usersService.findOne(userId);
-  }
-
-  @Post('')
-  @ApiBody({ type: CreateUserDto })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return await this.usersService.create(createUserDto);
   }
 
   @Patch(':userId')

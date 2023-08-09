@@ -1,4 +1,4 @@
 import { InferModel } from 'drizzle-orm';
-import { usersTable } from 'src/database/schemas/users';
+import { usersTable } from '@src/database/schemas/users';
 
-export type User = InferModel<typeof usersTable>;
+export type User = Omit<InferModel<typeof usersTable>, 'password'>;
