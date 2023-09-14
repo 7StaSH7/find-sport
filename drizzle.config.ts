@@ -1,6 +1,6 @@
-import Config from "drizzle-orm";
+import type { Config } from "drizzle-kit";
 
 export default {
-  schema: "./src/database/schemas/*",
-  out: "./src/database/migrations",
+  schema: "src/database/schemas/*",
+  out: "src/database/migrations",
 } satisfies Config;
