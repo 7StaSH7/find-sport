@@ -1,0 +1,26 @@
+{
+  "name": "elysia-test",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "migration:generate": "drizzle-kit generate:pg",
+    "migration:drop": "drizzle-kit drop",
+    "migration:run": "bun ./src/database/migrate.ts"
+  },
+  "dependencies": {
+    "@elysiajs/jwt": "^0.6.4",
+    "@elysiajs/swagger": "^0.6.2",
+    "drizzle-orm": "^0.28.6",
+    "drizzle-typebox": "^0.1.1",
+    "elysia": "latest",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@sinclair/typebox": "^0.31.14",
+    "@types/pg": "^8.10.2",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.19.13"
+  },
+  "module": "src/index.js"
+}
