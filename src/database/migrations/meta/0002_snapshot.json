@@ -1,0 +1,114 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "a5eb924a-202b-4108-a0ca-01e809cce6b2",
+  "prevId": "394eb4be-41f0-4c59-9db8-16d2f1195a65",
+  "tables": {
+    "grounds": {
+      "name": "grounds",
+      "schema": "",
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nickname": {
+          "name": "nickname",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "users_to_grounds": {
+      "name": "users_to_grounds",
+      "schema": "",
+      "columns": {
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ground_uuid": {
+          "name": "ground_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_to_grounds_user_uuid_users_uuid_fk": {
+          "name": "users_to_grounds_user_uuid_users_uuid_fk",
+          "tableFrom": "users_to_grounds",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_uuid"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_to_grounds_ground_uuid_grounds_uuid_fk": {
+          "name": "users_to_grounds_ground_uuid_grounds_uuid_fk",
+          "tableFrom": "users_to_grounds",
+          "tableTo": "grounds",
+          "columnsFrom": [
+            "ground_uuid"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_to_grounds_user_uuid_ground_uuid": {
+          "name": "users_to_grounds_user_uuid_ground_uuid",
+          "columns": [
+            "user_uuid",
+            "ground_uuid"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {
+      "\"users_to_grounds\".\"grounds_uuid\"": "\"users_to_grounds\".\"ground_uuid\""
+    }
+  }
+}
