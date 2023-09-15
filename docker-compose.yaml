@@ -5,6 +5,7 @@ services:
     networks:
       - postgres
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/create_database.sql
       - /data/postgres:/data/postgres
     environment:
       - POSTGRES_PASSWORD=root
