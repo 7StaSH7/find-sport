@@ -7,13 +7,15 @@ export const usersTable = pgTable(
   "users",
   {
     uuid: uuid("uuid").defaultRandom().primaryKey(),
-    nickname: varchar("nickname", { length: 20 }).notNull().unique(),
+    nickname: varchar("nickname", { length: 50 }).notNull().unique(),
     email: varchar("email", { length: 50 }).notNull().unique(),
     name: varchar("name", { length: 30 }).notNull(),
     surname: varchar("surname", { length: 50 }).notNull(),
     patronymic: varchar("patronymic", { length: 50 }).notNull(),
-    password: varchar("password_hash", { length: 72 }).notNull(),
+    password: varchar("password_hash").notNull(),
     role: roleEnum("role"),
+    accessToken: varchar("access_token"),
+    refreshToken: varchar("refresh_token"),
   },
   (table) => ({
     nicknameIdx: index("nickname_idx").on(table.nickname),
